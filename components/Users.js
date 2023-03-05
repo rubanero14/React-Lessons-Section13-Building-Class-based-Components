@@ -3,12 +3,6 @@ import User from "./User";
 
 import classes from "./Users.module.css";
 
-const DUMMY_USERS = [
-  { id: "u1", name: "Max" },
-  { id: "u2", name: "Manuel" },
-  { id: "u3", name: "Julie" },
-];
-
 class Users extends Component {
   // In class based components, states are initialized, defined and updated using constructor method
   constructor() {
@@ -29,11 +23,21 @@ class Users extends Component {
     });
   }
 
+  // Class based Lifecycles
+  // This lifecycle is called when component is rendered to the DOM for first time and thats it, equivalent to useEffect(someCode, []);
+  componentDidMount() {}
+
+  // This lifecycle is called when component is updated, equivalent to useEffect(someCode, [someDependencies]);
+  componentDidUpdate() {}
+
+  // This lifecycle is called before component is removed from the DOM, equivalent to useEffect(() => { return {...} }, []), or cleanup function
+  componentWillUnmount() {}
+
   render() {
     // Data are managed within render method
     const usersList = (
       <ul>
-        {DUMMY_USERS.map((user) => (
+        {this.props.users.map((user) => (
           <User key={user.id} name={user.name} />
         ))}
       </ul>

@@ -28,7 +28,11 @@ class Users extends Component {
   componentDidMount() {}
 
   // This lifecycle is called when component is updated, equivalent to useEffect(someCode, [someDependencies]);
-  componentDidUpdate() {}
+  componentDidUpdate() {
+    if (this.props.users.length === 0) {
+      throw new Error("No users provided!");
+    }
+  }
 
   // This lifecycle is called before component is removed from the DOM, equivalent to useEffect(() => { return {...} }, []), or cleanup function
   componentWillUnmount() {}

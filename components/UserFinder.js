@@ -4,6 +4,7 @@ import Users from "./Users";
 
 import styles from "./UserFinder.module.css";
 import UsersContext from "../store/users-context";
+import ErrorBoundary from "./ErrorBoundary";
 
 class UserFinder extends Component {
   // To use context in this class component, React has contextType method where you can assign any context to it as variable and to access its data, simply
@@ -58,7 +59,9 @@ class UserFinder extends Component {
         <div className={styles.finder}>
           <input type="search" onChange={this.searchChangeHandler.bind(this)} />
         </div>
-        <Users users={this.state.filteredUsers} />
+        <ErrorBoundary>
+          <Users users={this.state.filteredUsers} />
+        </ErrorBoundary>
       </Fragment>
     );
   }

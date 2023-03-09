@@ -1,5 +1,7 @@
 import { Component } from "react";
 
+import styles from "./ErrorBoundary.module.css";
+
 export default class ErrorBoundary extends Component {
   constructor() {
     super();
@@ -17,7 +19,11 @@ export default class ErrorBoundary extends Component {
   render() {
     // This only fires when component catches an error
     if (this.state.error) {
-      return <p>Something went wrong!</p>;
+      return (
+        <div className={styles.error}>
+          <p>Something went wrong!</p>
+        </div>
+      );
     }
 
     // Error boundary component used to wrap error prone components hence we return this.props.children to enable child componentsto render.

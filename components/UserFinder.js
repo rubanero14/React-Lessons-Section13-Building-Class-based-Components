@@ -3,14 +3,12 @@ import { Fragment, Component } from "react";
 import Users from "./Users";
 
 import styles from "./UserFinder.module.css";
-
-const DUMMY_USERS = [
-  { id: "u1", name: "Max" },
-  { id: "u2", name: "Manuel" },
-  { id: "u3", name: "Julie" },
-];
+import UsersContext from "../store/users-context";
 
 class UserFinder extends Component {
+  // To use context in this class component, React has contextType method where you can assign any context to it as variable and to access its data, simply
+  // type this.context.["context-name"] to access its data
+  static contextType = UsersContext;
   constructor() {
     super();
     this.state = {
@@ -26,7 +24,7 @@ class UserFinder extends Component {
   // Lifecycle fires when component renders to the DOM for the first time and only once
   componentDidMount() {
     // Mock dummy http request...
-    this.setState({ filteredUsers: DUMMY_USERS });
+    this.setState({ filteredUsers: this.context.users });
   }
 
   // Lifecycle hooks fires when component updates due to state or props changes, takes in 2 args, previous props and state snapshot
@@ -35,7 +33,7 @@ class UserFinder extends Component {
     // Comparing previous state for searchTerm snapshot with current searchTerm state, if changes then execute the line below.
     if (prevState.searchTerm !== this.state.searchTerm) {
       this.setState({
-        filteredUsers: DUMMY_USERS.filter((user) =>
+        filteredUsers: this.context.users.filter((user) =>
           user.name.toLowerCase().includes(this.state.searchTerm.toLowerCase())
         ),
       });
@@ -45,6 +43,18 @@ class UserFinder extends Component {
   render() {
     return (
       <Fragment>
+        {/* For class based components, context can be used using [comp-name].Consumer component to use the store */}
+        {/*
+          <UsersContext.Consumer>
+            <div className={styles.finder}>
+              <input
+                type="search"
+                onChange={this.searchChangeHandler.bind(this)}
+              />
+            </div>
+            <Users users={this.state.filteredUsers} />
+          </UsersContext.Consumer>
+        */}
         <div className={styles.finder}>
           <input type="search" onChange={this.searchChangeHandler.bind(this)} />
         </div>
